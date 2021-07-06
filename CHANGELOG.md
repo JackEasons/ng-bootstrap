@@ -1,3 +1,76 @@
+# [11.0.0-beta.2](https://github.com/ng-bootstrap/ng-bootstrap/compare/10.0.0...11.0.0-beta.2) (2021-07-05)
+
+This release adds Angular 12 support for the Bootstrap 5 beta version along with a couple of bugfixes.
+
+### Bug Fixes
+
+* **accordion:** fix broken collapse animation ([801093a](https://github.com/ng-bootstrap/ng-bootstrap/commit/801093af31cd9c43e197170d76e03e1a329e93b0))
+* **datepicker:** fix header colors ([c24880c](https://github.com/ng-bootstrap/ng-bootstrap/commit/c24880c0f6455c60d9825127904dd80e1def09c8))
+
+
+# [10.0.0](https://github.com/ng-bootstrap/ng-bootstrap/compare/9.1.3...10.0.0) (2021-07-01)
+
+This release adds Angular 12 support
+
+### BREAKING CHANGES
+
+* **datepicker:** The deprecated datepicker `@Input() showWeekdays: boolean` is removed from `NgbDatepicker` and `NgbInputDatepicker`.
+It was replaced by `@Input() weekdays: TranslationWidth | boolean;` that also allows providing `TranslationWidth` if necessary.
+
+BEFORE:
+```
+<!-- datepicker -->
+<ngb-datepicker [showWeekdays]="true"></ngb-datepicker>
+<input ngbDatepicker [showWeekdays]="true"></input>
+
+<!-- datepicker config -->
+constructor(config: NgbDatepickerConfig) {
+  config.showWeekdays = true;
+}
+```
+
+AFTER:
+```
+<!-- datepicker -->
+<ngb-datepicker [weekdays]="true"></ngb-datepicker>
+<input ngbDatepicker [weekdays]="true"></input>
+
+<!-- datepicker config -->
+constructor(config: NgbDatepickerConfig) {
+  config.weekdays = TranslationWidth.Short;
+}
+```
+* **datepicker:** This change concerns you if you're creating custom datepicker calendars and i18ns.
+
+The deprecated datepicker `getWeekdayShortName(weekday: number): string;` is removed from `NgbDatepickerI18n`.
+It was replaced by `getWeekdayLabel(weekday: number, width?: TranslationWidth): string;`  to add `TranslationWidth` option and align naming.
+
+BEFORE:
+```
+@Injectable()
+export class MyDatepickerI18n extends NgbDatepickerI18n {
+  getWeekdayShortName(weekday: number) { return 'your weekday short name'; }
+}
+```
+
+AFTER:
+```
+@Injectable()
+export class MyDatepickerI18n extends NgbDatepickerI18n {
+  getWeekdayLabel(weekday: number, width?: TranslationWidth) { return 'your weekday short name'; }
+}
+```
+
+
+## [9.1.3](https://github.com/ng-bootstrap/ng-bootstrap/compare/9.1.2...9.1.3) (2021-06-16)
+
+
+### Reverts
+
+* Revert "fix(popover): enable pointer events only for popover content" ([94282d2](https://github.com/ng-bootstrap/ng-bootstrap/commit/94282d2b84dfceb119a4c8653907d47eae4bc366)) to fix #4103
+
+
+
 ## [9.1.2](https://github.com/ng-bootstrap/ng-bootstrap/compare/9.1.1...9.1.2) (2021-06-04)
 
 
@@ -15,7 +88,7 @@ This is the first beta version with Bootstrap 5 support. Please install with `np
 * the schematics are broken in this version
 * accordion animation seems to be broken
 * datepicker header lost its color
-* no support yet for the new Accordion, Offcanvas and Popper 2 
+* no support yet for the new Accordion, Offcanvas and Popper 2
 
 ### Bug Fixes
 
